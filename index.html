@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="유튜브 영상의 썸네일을 쉽고 빠르게 추출하세요. 다양한 화질의 썸네일을 무료로 다운로드할 수 있습니다.">
+    <title>유튜브 썸네일 추출기 | YouTube Thumbnail Extractor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                    </svg>
+                </div>
+                <h1>썸네일 추출기</h1>
+            </div>
+            <p class="subtitle">유튜브 영상의 고화질 썸네일을 손쉽게 추출하세요</p>
+        </header>
+
+        <main class="main-content">
+            <div class="input-section glass-card">
+                <div class="input-wrapper">
+                    <div class="input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                        </svg>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="youtube-url" 
+                        placeholder="유튜브 영상 URL을 입력하세요..."
+                        autocomplete="off"
+                    >
+                    <button id="extract-btn" class="extract-button">
+                        <span class="btn-text">추출하기</span>
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                <p class="input-hint">예시: https://www.youtube.com/watch?v=VIDEO_ID 또는 https://youtu.be/VIDEO_ID</p>
+            </div>
+
+            <div id="error-message" class="error-message hidden">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                <span id="error-text">오류가 발생했습니다.</span>
+            </div>
+
+            <div id="result-section" class="result-section hidden">
+                <div class="video-info glass-card">
+                    <h2>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"/>
+                        </svg>
+                        영상 정보
+                    </h2>
+                    <p id="video-id-display" class="video-id"></p>
+                </div>
+
+                <div class="thumbnails-grid">
+                    <div class="thumbnail-card glass-card" data-quality="maxresdefault">
+                        <div class="quality-badge premium">최고 화질</div>
+                        <div class="thumbnail-image-wrapper">
+                            <img id="thumb-maxres" alt="최고 화질 썸네일" loading="lazy">
+                            <div class="image-overlay">
+                                <span>1280 x 720</span>
+                            </div>
+                        </div>
+                        <div class="thumbnail-actions">
+                            <span class="quality-label">HD (1280×720)</span>
+                            <button class="download-btn" data-quality="maxresdefault">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                다운로드
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="thumbnail-card glass-card" data-quality="sddefault">
+                        <div class="quality-badge standard">표준 화질</div>
+                        <div class="thumbnail-image-wrapper">
+                            <img id="thumb-sd" alt="표준 화질 썸네일" loading="lazy">
+                            <div class="image-overlay">
+                                <span>640 x 480</span>
+                            </div>
+                        </div>
+                        <div class="thumbnail-actions">
+                            <span class="quality-label">SD (640×480)</span>
+                            <button class="download-btn" data-quality="sddefault">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                다운로드
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="thumbnail-card glass-card" data-quality="hqdefault">
+                        <div class="quality-badge high">고화질</div>
+                        <div class="thumbnail-image-wrapper">
+                            <img id="thumb-hq" alt="고화질 썸네일" loading="lazy">
+                            <div class="image-overlay">
+                                <span>480 x 360</span>
+                            </div>
+                        </div>
+                        <div class="thumbnail-actions">
+                            <span class="quality-label">HQ (480×360)</span>
+                            <button class="download-btn" data-quality="hqdefault">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                다운로드
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="thumbnail-card glass-card" data-quality="mqdefault">
+                        <div class="quality-badge medium">중간 화질</div>
+                        <div class="thumbnail-image-wrapper">
+                            <img id="thumb-mq" alt="중간 화질 썸네일" loading="lazy">
+                            <div class="image-overlay">
+                                <span>320 x 180</span>
+                            </div>
+                        </div>
+                        <div class="thumbnail-actions">
+                            <span class="quality-label">MQ (320×180)</span>
+                            <button class="download-btn" data-quality="mqdefault">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                다운로드
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="thumbnail-card glass-card" data-quality="default">
+                        <div class="quality-badge low">기본 화질</div>
+                        <div class="thumbnail-image-wrapper">
+                            <img id="thumb-default" alt="기본 화질 썸네일" loading="lazy">
+                            <div class="image-overlay">
+                                <span>120 x 90</span>
+                            </div>
+                        </div>
+                        <div class="thumbnail-actions">
+                            <span class="quality-label">기본 (120×90)</span>
+                            <button class="download-btn" data-quality="default">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                다운로드
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>© 2024 유튜브 썸네일 추출기. 모든 썸네일 저작권은 원 영상 제작자에게 있습니다.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
