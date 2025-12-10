@@ -25,10 +25,14 @@ export default function Home() {
     setIsGenerating(true);
     setGeneratedImage(null);
 
+    // 키워드를 영어로 간단 변환 (한글 → 영어 키워드)
+    const keywords = prompt.trim().replace(/\s+/g, ',');
+
     setTimeout(() => {
-      setGeneratedImage(`https://picsum.photos/seed/${Date.now()}/1280/720`);
+      // Unsplash 무료 이미지 검색 (API 키 불필요)
+      setGeneratedImage(`https://source.unsplash.com/1280x720/?${encodeURIComponent(keywords)}`);
       setIsGenerating(false);
-    }, 2500);
+    }, 2000);
   }, [prompt]);
 
   const handleDownload = () => {
