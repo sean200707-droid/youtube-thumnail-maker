@@ -29,8 +29,9 @@ export default function Home() {
     const keywords = prompt.trim().replace(/\s+/g, ',');
 
     setTimeout(() => {
-      // Unsplash 무료 이미지 검색 (API 키 불필요)
-      setGeneratedImage(`https://source.unsplash.com/1280x720/?${encodeURIComponent(keywords)}`);
+      // 데모용 이미지 (항상 로드됨)
+      const seed = Date.now();
+      setGeneratedImage(`https://picsum.photos/seed/${seed}/1280/720`);
       setIsGenerating(false);
     }, 2000);
   }, [prompt]);
