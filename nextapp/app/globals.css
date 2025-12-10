@@ -1,26 +1,22 @@
 @import "tailwindcss";
 
-/* ===== Cyber Creator Theme - Custom Properties ===== */
+/* 기본 변수 설정 */
 :root {
   --bg-primary: #0F0F0F;
   --bg-secondary: #1a1a1a;
-  --brand-red: #FF0000;
-  --accent-cyan: #00F0FF;
-  --accent-purple: #7000FF;
   --text-primary: #FFFFFF;
-  --text-secondary: #AAAAAA;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-secondary: #9CA3AF;
+  --accent-red: #DC2626;
+  --accent-orange: #EA580C;
 }
 
 @theme inline {
   --color-background: var(--bg-primary);
   --color-foreground: var(--text-primary);
   --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-heading: 'Gmarket Sans', 'Pretendard', sans-serif;
 }
 
-/* ===== Base Styles ===== */
+/* 기본 스타일 초기화 */
 * {
   margin: 0;
   padding: 0;
@@ -34,67 +30,22 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* ===== Glassmorphism Effect ===== */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+/* 선택 영역 스타일 */
+::selection {
+  background: rgba(220, 38, 38, 0.3);
+  color: white;
 }
 
-/* ===== Neon Glow Effects ===== */
-.neon-glow {
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4),
-              0 0 40px rgba(112, 0, 255, 0.3),
-              0 0 60px rgba(0, 240, 255, 0.2);
-}
-
-.neon-glow-hover:hover {
-  box-shadow: 0 0 30px rgba(0, 240, 255, 0.6),
-              0 0 60px rgba(112, 0, 255, 0.5),
-              0 0 90px rgba(0, 240, 255, 0.3);
-}
-
-/* ===== Gradient Text ===== */
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ===== AI Gradient Button ===== */
-.ai-gradient-bg {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-}
-
-/* ===== Neon Spinner ===== */
-@keyframes neon-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.neon-spinner {
-  width: 60px;
-  height: 60px;
-  border: 4px solid transparent;
-  border-top: 4px solid var(--accent-cyan);
-  border-right: 4px solid var(--accent-purple);
-  border-radius: 50%;
-  animation: neon-spin 1s linear infinite;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5),
-              inset 0 0 20px rgba(112, 0, 255, 0.3);
-}
-
-/* ===== Scrollbar Styling ===== */
+/* 스크롤바 스타일 */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -102,41 +53,47 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
-  border-radius: 4px;
+  background: #404040;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--accent-purple), var(--accent-cyan));
+  background: #525252;
 }
 
-/* ===== Template Chip Scrollbar ===== */
-.chips-scroll::-webkit-scrollbar {
-  height: 4px;
-}
-
-.chips-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-}
-
-/* ===== Hide scrollbar for chips on mobile ===== */
+/* 모바일에서 스크롤바 숨김 */
 @media (max-width: 768px) {
-  .chips-scroll {
+  .hide-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  .chips-scroll::-webkit-scrollbar {
+
+  .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
 }
 
-/* ===== Image Overlay Transition ===== */
-.image-overlay {
-  opacity: 0;
+/* 포커스 스타일 */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(220, 38, 38, 0.5);
+  outline-offset: 2px;
+}
+
+/* 부드러운 이미지 로딩 */
+img {
   transition: opacity 0.3s ease;
 }
 
-.image-container:hover .image-overlay {
-  opacity: 1;
+/* 버튼 기본 스타일 */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* 입력창 기본 스타일 */
+input {
+  font-family: inherit;
 }
